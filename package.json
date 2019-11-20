@@ -8,7 +8,7 @@
     "start": "tailwind build src/tailwind.css -o docs/style.css",
     "dev": "postcss src/tailwind.css -o docs/style.css",
     "prod": "postcss src/tailwind.css -o docs/style.css --env=production",
-    "watch": "chokidar \"./dist/**/*.html\" -c \"yarn dev\""
+    "watch": "chokidar \"./docs/**/*.html\" -c \"yarn dev\""
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^1.3.0",

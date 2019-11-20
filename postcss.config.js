@@ -15,7 +15,7 @@ const configureCssnano = () => {
 const configPurgecss = () => {
   return {
     content: [
-      './dist/**/*.html'
+      './docs/**/*.html'
     ],
     defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
   }
