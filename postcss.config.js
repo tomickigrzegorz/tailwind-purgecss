@@ -1,39 +1,18 @@
-const modeENV = process.env.NODE_ENV;
-
-const prodPlugin = (plugin, argv) => {
-  return argv === 'production' ? plugin : () => { };
-}
+const cssnano = require('cssnano')
+const autoprefixer = require('autoprefixer')
 
 // configure Cssnano
 const configureCssnano = () => {
   return {
-    preset: 'default'
-  }
-}
-
-// configure Purgecss
-const configPurgecss = () => {
-  return {
-    content: [
-      './docs/**/*.html'
-    ],
-    defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
+    safe: true,
   }
 }
 
 module.exports = {
   plugins: [
-    require('tailwindcss'),
-    // autoprefixer
-    prodPlugin(require('autoprefixer'), modeENV),
     // cssnano
-    prodPlugin(require('cssnano')(
-      configureCssnano()
-    ), modeENV),
-    // purgecss
-    prodPlugin(
-      require('@fullhuman/postcss-purgecss')(
-        configPurgecss()
-      ), modeENV)
+    cssnano(configureCssnano()),
+    // autoprefixer
+    autoprefixer,
   ]
 }
