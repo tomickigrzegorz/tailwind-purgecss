@@ -8,7 +8,7 @@ It includes:
 - [tailwindcss](https://github.com/tailwindcss/tailwindcss)
 
 
-## Tailwindcss + bootstrap (or other css framework)
+## Tailwindcss + bootstrap (or other css framework) -> [branch](https://github.com/tomik23/tailwind-purgecss/tree/bootstrap-tailwind)
 
 This example shows how to use the `purgecss-webpack-plugin` plugin to dramatically select only the necessary css code from bootstrap.
 
