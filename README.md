@@ -1,4 +1,4 @@
-## Simple tailwindcss + purgecss configuration
+## 1. Simple tailwindcss + purgecss configuration
 It includes:
 - [@fullhuman/postcss-purgecss](https://github.com/FullHuman/postcss-purgecss)
 - [autoprefixer](https://github.com/postcss/autoprefixer)
@@ -8,7 +8,7 @@ It includes:
 - [tailwindcss](https://github.com/tailwindcss/tailwindcss)
 
 
-## Tailwindcss + bootstrap (or other css framework)
+## 2. purgecss + bootstrap (or other css framework) -> [branch](https://github.com/tomik23/tailwind-purgecss/tree/bootstrap-tailwind)
 
 This example shows how to use the `purgecss-webpack-plugin` plugin to dramatically select only the necessary css code from bootstrap.
 
