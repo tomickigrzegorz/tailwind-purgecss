@@ -7,6 +7,8 @@ const PurgecssPlugin = require('purgecss-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const type = process.env.TYPE;
+
 const PATHS = {
   src: path.join(__dirname, 'src')
 }
@@ -60,7 +62,7 @@ const configureCleanWebpack = () => {
 const entryHtmlPlugins = Object.keys(ENTRY).map(entryName => {
   return new HtmlWebpackPlugin({
     filename: `${entryName}.html`,
-    template: `./src/${entryName}.html`,
+    template: `./src/template-${type}/${entryName}.${type}`,
     chunks: [entryName]
   });
 });
@@ -71,6 +73,18 @@ const configureTerser = () => {
     cache: true,
     parallel: true,
     sourceMap: true,
+  };
+};
+
+// Configure Pug Loader
+const configurePugLoader = () => {
+  return {
+    test: /\.pug$/,
+    loader: 'pug-loader',
+    options: {
+      pretty: true,
+      self: true,
+    },
   };
 };
 
@@ -103,9 +117,9 @@ module.exports = (env, argv) => {
     mode: argv.mode === "production" ? "production" : "development",
     entry: ENTRY,
     output: {
-      filename: "vendor/[name].js",
-      path: path.resolve(__dirname, 'dist'),
-      chunkFilename: 'vendor/[name].js'
+      filename: "vendor/js/[name].js",
+      path: path.resolve(__dirname, `dist-${type}`),
+      chunkFilename: 'vendor/js/[name].js'
     },
     optimization: configureOptimization(),
     module: {
@@ -117,13 +131,14 @@ module.exports = (env, argv) => {
             loader: "babel-loader"
           }
         },
-        configureStyleLoader(argv.mode)
+        configureStyleLoader(argv.mode),
+        configurePugLoader()
       ]
     },
     plugins: [
       prodPlugin(new CleanWebpackPlugin(configureCleanWebpack()), argv),
       new MiniCssExtractPlugin({
-        filename: "vendor/[name].css"
+        filename: "vendor/css/[name].css"
       }),
       new PurgecssPlugin({
         paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true })
